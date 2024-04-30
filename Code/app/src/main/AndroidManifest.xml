@@ -63,14 +63,7 @@
             android:name=".EmployeurAgence.AddAnnonceMenu"
             android:exported="true">
         </activity>
-        <activity
-            android:name=".Commun.CvHelpMenu"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".Commun.StatMenu"
-            android:exported="true">
-        </activity>
+
     </application>
 
 </manifest>

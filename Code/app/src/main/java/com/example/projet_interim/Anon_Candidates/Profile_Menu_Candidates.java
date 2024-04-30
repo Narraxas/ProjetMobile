@@ -88,50 +88,8 @@ public class Profile_Menu_Candidates extends AppCompatActivity {
         });
     }
 
-    private void refreshListView(){
-        db = new DB(getApplicationContext(), Profile_Menu_Candidates.this);
-
-        candidature_attente = db.getCandidatureAnnonceForUserId(user.id);
-        candidature_prisent = db.getAnnonces_prisentForUserId(user.id);
-
-        OfferAdaptator adapter1 = new OfferAdaptator(getApplicationContext(),candidature_attente);
-        listView_offres_attente.setAdapter(adapter1);
-        OfferAdaptator adapter2 = new OfferAdaptator(getApplicationContext(),candidature_prisent);
-        listview_offres_prisent.setAdapter(adapter2);
-    }
-
     private void removeCandidatureFromList(String candidatureID){
-
-        /*db = new DB(getApplicationContext(), Profil_Menu_Employeur.this);
-
-        candidature_prisent = db.getAnnoncesFromCreatorId(user.id);
-        OfferAdaptator adapter1 = new OfferAdaptator(getApplicationContext(), candidature_prisent);
-        listview_offres_prisent.setAdapter(adapter1);
-
-        candidaturesList = db.getCandidaturesIntendedForUserID(user.id);
-
-        // construction de la list des candidature a afficher
-        displayedCandidaturesList.clear();
-        for(ArrayList<String> cand : candidaturesList){
-            ArrayList<String> displayedCand = new ArrayList<>();
-            displayedCand.add(cand.get(0));
-            displayedCand.add(db.getUserNameFromID(cand.get(1)));
-            displayedCand.add(db.getAnnonceTitleFromId(cand.get(2)));
-            displayedCandidaturesList.add(displayedCand);
-        }
-
-        CandidatureAdaptator adapter2 = new CandidatureAdaptator(getApplicationContext(), displayedCandidaturesList);
-        listView_candidatures.setAdapter(adapter2);
-
-
-        // Remove the candidature from candidature_attente or candidature_prisent
-        for (ArrayList<String> candidature : candidature_attente) {
-            if (candidature.get(0).equals(candidatureID)) {
-                candidature_attente.remove(candidature);
-                break;
-            }
-        }
-
+        // Supprimer la candidature de la liste candidature_prisent
         for (ArrayList<String> candidature : candidature_prisent) {
             if (candidature.get(0).equals(candidatureID)) {
                 candidature_prisent.remove(candidature);
@@ -139,8 +97,9 @@ public class Profile_Menu_Candidates extends AppCompatActivity {
             }
         }
 
-        // Update the list views
-        refreshListView();*/
+        // Mettre à jour la liste d'offres prises affichée
+        OfferAdaptator adapter2 = new OfferAdaptator(getApplicationContext(),candidature_prisent);
+        listview_offres_prisent.setAdapter(adapter2);
     }
 
     private void showDialogCandidature(ArrayList<String> userInfo, String candidatureID, String annonceTitle, String employeurId){
