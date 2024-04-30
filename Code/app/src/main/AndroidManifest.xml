@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Projet_Interim"
+        tools:targetApi="31">
+        <activity
+            android:name=".Geolocalisation"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Anon_Candidates.AnnonceList_Menu_Anon_Candidates"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Anon_Candidates.Profile_Menu_Candidates"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Anon_Candidates.ApplyTo_Menu_Candidates"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.LoginScreen"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.RegisterMenu1"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.RegisterOrModifyInfoMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.NotifMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.WriteNotifMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".EmployeurAgence.Profil_Menu_Employeur"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".EmployeurAgence.AddAnnonceMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.CvHelpMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Commun.StatMenu"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>

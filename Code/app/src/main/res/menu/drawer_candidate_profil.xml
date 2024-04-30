@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/drawer_modifyInfo"
+        android:title='Modifier mes informations' />
+    <item
+        android:id="@+id/drawer_annonce"
+        android:title='Retour à la liste des annonces' />
+    <item
+        android:id="@+id/drawer_msg"
+        android:title='Messages / Contacts' />
+
+    <item
+        android:id="@+id/drawer_disconnect"
+        android:title='Se déconnecter' />
+</menu>

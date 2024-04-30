@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/viewNotif_from_t"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/viewNotif_objet_t"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:justificationMode="inter_word"
+            android:text="TextView"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/viewNotif_content_t"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:justificationMode="inter_word"
+            android:text="TextView"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/viewNotif_reply_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Répondre" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="58dp" />
+
+        <Button
+            android:id="@+id/viewNotif_delete_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Supprimer" />
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

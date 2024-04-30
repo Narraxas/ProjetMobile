@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:backgroundTint="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/search_option_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/green1"
+            android:backgroundTint="@color/box1"
+            android:translationZ="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/duree_research_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:hint="Durée"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/search_option_menu"
+            app:layout_constraintEnd_toEndOf="@+id/search_option_menu"
+            app:layout_constraintStart_toStartOf="@+id/search_option_menu"
+            app:layout_constraintTop_toTopOf="@+id/search_option_menu"
+            app:layout_constraintVertical_bias="0.785" />
+
+        <EditText
+            android:id="@+id/periode_research_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:hint="Période"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/search_option_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/search_option_menu"
+            app:layout_constraintTop_toTopOf="@+id/search_option_menu"
+            app:layout_constraintVertical_bias="0.214" />
+
+        <EditText
+            android:id="@+id/lieu_research_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:background="@color/background"
+            android:hint="Lieu"
+            android:translationZ="2dp"
+            app:layout_constraintStart_toStartOf="@+id/search_option_menu"
+            app:layout_constraintTop_toTopOf="@+id/search_option_menu" />
+
+        <EditText
+            android:id="@+id/employeur_research_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/background"
+            android:hint="Employeur"
+            android:translationZ="2dp"
+            app:layout_constraintStart_toStartOf="@+id/search_option_menu"
+            app:layout_constraintTop_toTopOf="@+id/search_option_menu" />
+
+        <EditText
+            android:id="@+id/metier_research_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@color/background"
+            android:hint="Métier"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/search_option_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.986"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/search_option_menu"
+            app:layout_constraintVertical_bias="0.214" />
+
+        <ListView
+            android:id="@+id/offre_listview"
+            android:layout_width="373dp"
+            android:layout_height="561dp"
+            android:background="@color/background"
+            android:divider="@color/background"
+            android:dividerHeight="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.927" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_anon_candidate_mainmenu"
+        android:id="@+id/navView"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
