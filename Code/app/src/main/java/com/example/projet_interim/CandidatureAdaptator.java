@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class CandidatureAdaptator extends BaseAdapter {
 
@@ -16,12 +16,12 @@ public class CandidatureAdaptator extends BaseAdapter {
     private ArrayList<ArrayList<String>> list;
     private LayoutInflater inflater;
 
-    // provide : id_candidature, username, titre de l'annonce
     public CandidatureAdaptator(Context context, ArrayList<ArrayList<String>> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -34,20 +34,32 @@ public class CandidatureAdaptator extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.candidature_adaptator, parent, false);
+            holder = new ViewHolder();
+            holder.candidatureText = convertView.findViewById(R.id.candidature_text);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-        view = inflater.inflate(R.layout.candidature_listview_adaptator,null);
-        TextView txt = view.findViewById(R.id.candidature_text);
+        ArrayList<String> item = getItem(i);
+        if (item != null) {
+            String username = item.get(1);
+            String annonceTitle = item.get(2);
+            holder.candidatureText.setText(username + " candidate pour :\n" + annonceTitle);
+        }
 
+        return convertView;
+    }
 
-        ArrayList<String> s = getItem(i);
-
-        txt.setText(s.get(1) + " candidate pour :\n" + s.get(2));
-
-        return view;
+    static class ViewHolder {
+        TextView candidatureText;
     }
 }

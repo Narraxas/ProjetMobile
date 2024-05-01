@@ -24,43 +24,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Anon_Candidates.AnnonceList_Menu_Anon_Candidates"
+            android:name=".Candidat.AffichageAnnonces"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Anon_Candidates.Profile_Menu_Candidates"
+            android:name=".Candidat.ProfilCandidat"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Anon_Candidates.ApplyTo_Menu_Candidates"
+            android:name=".Candidat.ApplyCandidature"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Commun.LoginScreen"
+            android:name=".Commun.Login"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Commun.RegisterMenu1"
+            android:name=".Commun.RegisterMenu"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Commun.RegisterOrModifyInfoMenu"
+            android:name=".Commun.RegisterFormulaire"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Commun.NotifMenu"
+            android:name=".Commun.Message"
             android:exported="true">
         </activity>
         <activity
-            android:name=".Commun.WriteNotifMenu"
+            android:name=".Commun.WriteMessage"
             android:exported="true">
         </activity>
         <activity
-            android:name=".EmployeurAgence.Profil_Menu_Employeur"
+            android:name=".Employeur.ProfilEmployeur"
             android:exported="true">
         </activity>
         <activity
-            android:name=".EmployeurAgence.AddAnnonceMenu"
+            android:name=".Employeur.AddAnnonce"
             android:exported="true">
         </activity>
 

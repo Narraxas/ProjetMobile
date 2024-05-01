@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Ajoutez ici les éléments d'interface utilisateur nécessaires pour modifier l'offre,
+         tels que des EditText pour le titre, le contenu, etc. -->
+    <EditText
+        android:id="@+id/edit_offer_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Titre de l'offre" />
+
+    <EditText
+        android:id="@+id/edit_offer_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contenu de l'offre" />
+
+    <!-- Ajoutez d'autres éléments d'interface utilisateur selon vos besoins -->
+
+</LinearLayout>

@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_employeur_agence_add_annonce"
+        app:menu="@menu/employeur_add_annonce_menu"
         android:id="@+id/navView_oneText_Menu"
         android:layout_gravity="start"
         android:fitsSystemWindows="true" />

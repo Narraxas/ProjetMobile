@@ -1,4 +1,4 @@
-package com.example.projet_interim.EmployeurAgence;
+package com.example.projet_interim.Employeur;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,24 +13,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.projet_interim.Anon_Candidates.AnnonceList_Menu_Anon_Candidates;
-import com.example.projet_interim.Commun.LoginScreen;
+import com.example.projet_interim.Candidat.AffichageAnnonces;
+import com.example.projet_interim.Commun.Login;
 import com.example.projet_interim.CurentUser;
 import com.example.projet_interim.DB;
 import com.example.projet_interim.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class AddAnnonceMenu extends AppCompatActivity {
+public class AddAnnonce extends AppCompatActivity {
 
-    ActionBarDrawerToggle barToggled;
+    ActionBarDrawerToggle barToggle;
     DrawerLayout drawerLayout;
     NavigationView navView;
 
-    EditText title_t;
-    EditText content_t;
-    EditText coord_t;
-    Button back_b;
-    Button add_b;
+    EditText titleEditText;
+    EditText contentEditText;
+    EditText coordEditText;
+    Button backButton;
+    Button addButton;
 
     CurentUser user;
     DB db;
@@ -38,20 +38,18 @@ public class AddAnnonceMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.add_annonce);
 
-        setContentView(R.layout.add_annonce_menu);
+        drawerLayout = findViewById(R.id.drawerLayout_addAnnonce_menu);
+        navView = findViewById(R.id.navView_addAnnonce_menu);
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout_addAnnonce_menu);
-        navView = (NavigationView) findViewById(R.id.navView_addAnnonce_menu);
-
-        // init de la db et récupération du user courant
+        // Initialize DB and get current user
         user = CurentUser.getInstance();
         db = new DB(getApplicationContext(), this);
 
-
         // Side Menu
-        barToggled = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
-        barToggled.syncState();
+        barToggle = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
+        barToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,24 +59,24 @@ public class AddAnnonceMenu extends AppCompatActivity {
             }
         });
 
-        title_t = (EditText) findViewById(R.id.addAnnonce_title_text);
-        content_t = (EditText) findViewById(R.id.addAnnonce_content_text);
-        coord_t = (EditText) findViewById(R.id.addAnnonce_coord_text);
-        back_b = (Button) findViewById(R.id.addAnnonce_back_button);
-        add_b = (Button) findViewById(R.id.addAnnonce_send_button);
+        titleEditText = findViewById(R.id.addAnnonce_title_text);
+        contentEditText = findViewById(R.id.addAnnonce_content_text);
+        coordEditText = findViewById(R.id.addAnnonce_coord_text);
+        backButton = findViewById(R.id.addAnnonce_back_button);
+        addButton = findViewById(R.id.addAnnonce_send_button);
     }
 
-    public void backToProfil(View v){
+    public void backToProfile(View v){
         finish();
     }
 
     public void addAnnonce(View v){
-        String title = String.valueOf(title_t.getText());
-        String content = String.valueOf(content_t.getText());
-        String coord = String.valueOf(coord_t.getText());
+        String title = titleEditText.getText().toString();
+        String content = contentEditText.getText().toString();
+        String coord = coordEditText.getText().toString();
 
-        if(title.equals("") || content.equals("") || coord.equals("")){
-            Toast.makeText(getApplicationContext(),"Objet vide", Toast.LENGTH_LONG).show();
+        if(title.isEmpty() || content.isEmpty() || coord.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Champ(s) vide(s)", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -87,31 +85,30 @@ public class AddAnnonceMenu extends AppCompatActivity {
         finish();
     }
 
-    // Permet d'ouvrir le Side Menu
+    // Open side menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(barToggled.onOptionsItemSelected(item)){
+        if(barToggle.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // Change d'Activity
+    // Switch activity
     void gotoMenu(int itemId){
         Intent intent = null;
         switch (itemId) {
             case R.id.drawer_profil:
-                intent = new Intent(getApplicationContext(), Profil_Menu_Employeur.class);
+                intent = new Intent(getApplicationContext(), ProfilEmployeur.class);
                 break;
             case R.id.drawer_annonce:
-                intent = new Intent(getApplicationContext(), AnnonceList_Menu_Anon_Candidates.class);
+                intent = new Intent(getApplicationContext(), AffichageAnnonces.class);
                 break;
-
             case R.id.drawer_disconnect:
                 CurentUser.getInstance().id = null;
                 CurentUser.getInstance().username = null;
                 CurentUser.getInstance().role = null;
-                intent = new Intent(getApplicationContext(), LoginScreen.class);
+                intent = new Intent(getApplicationContext(), Login.class);
                 break;
         }
 

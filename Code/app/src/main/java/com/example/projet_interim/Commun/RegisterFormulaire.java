@@ -13,7 +13,7 @@ import com.example.projet_interim.DB;
 
 import java.util.ArrayList;
 
-public class RegisterOrModifyInfoMenu extends Activity {
+public class RegisterFormulaire extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,10 +121,9 @@ public class RegisterOrModifyInfoMenu extends Activity {
 
                 break;
             case "employeur":
-            case "agence":
                 // String username, String role, String mail, String nomEntrep, String nomServiceDepartement, String nomSousServiceDepartement, String siren, String mail2
                 EditText nomEnt_t = new EditText(this);
-                nomEnt_t.setHint("Nom de l'entreprise");
+                nomEnt_t.setHint("Nom de l'entreprise *");
 
                 EditText nomServ_t = new EditText(this);
                 nomServ_t.setHint("Nom du service / département");
@@ -136,7 +135,7 @@ public class RegisterOrModifyInfoMenu extends Activity {
                 siren_t.setHint("N° SIREN");
 
                 EditText mail2_t = new EditText(this);
-                mail2_t.setHint("Mail 2");
+                mail2_t.setHint("Mail");
 
                 bouton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -162,7 +161,7 @@ public class RegisterOrModifyInfoMenu extends Activity {
 
                             db.addEmployerAgency(un, role, m, ne, ns, nss, s, m2);
 
-                            Toast.makeText(getApplicationContext(),"Bienvenu " + un, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Bienvenue " + un, Toast.LENGTH_LONG).show();
                             finish();
                         } else {
                             ArrayList userInfo = new ArrayList<>();
@@ -190,34 +189,6 @@ public class RegisterOrModifyInfoMenu extends Activity {
                 linearLayout.addView(mail2_t);
                 linearLayout.addView(bouton);
 
-                break;
-            case "admin":
-
-                bouton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String un = String.valueOf(username_t.getText());
-                        String m = String.valueOf(mail_t.getText());
-
-                        if(un.equals("") || m.equals("")){
-                            Toast.makeText(getApplicationContext(),"Champ vide", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        if(db.getUserByName(un) != null){
-                            Toast.makeText(getApplicationContext(),"Nom d'utilisateur déjà utilisé", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        db.addAdmin(un, m);
-                        Toast.makeText(getApplicationContext(),"Bienvenu " + un, Toast.LENGTH_LONG).show();
-                        finish();
-                    }});
-
-                linearLayout.addView(username_t);
-                linearLayout.addView(mail_t);
-                linearLayout.addView(mdp_t);
-                linearLayout.addView(bouton);
                 break;
         }
 

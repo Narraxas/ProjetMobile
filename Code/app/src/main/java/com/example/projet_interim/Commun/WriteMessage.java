@@ -7,35 +7,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.projet_interim.Anon_Candidates.AnnonceList_Menu_Anon_Candidates;
-import com.example.projet_interim.Anon_Candidates.Profile_Menu_Candidates;
+import com.example.projet_interim.Candidat.AffichageAnnonces;
+import com.example.projet_interim.Candidat.ProfilCandidat;
 import com.example.projet_interim.CurentUser;
 import com.example.projet_interim.DB;
-import com.example.projet_interim.EmployeurAgence.Profil_Menu_Employeur;
-import com.example.projet_interim.NotifAdaptator;
-import com.example.projet_interim.OfferAdaptator;
+import com.example.projet_interim.Employeur.ProfilEmployeur;
 import com.example.projet_interim.R;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
-public class WriteNotifMenu extends AppCompatActivity {
+public class WriteMessage extends AppCompatActivity {
 
     ActionBarDrawerToggle barToggled;
     DrawerLayout drawerLayout;
     NavigationView navView;
 
-    EditText destinataire_t;
-    EditText objet_t;
-    EditText content_t;
+    EditText destinataireEditText;
+    EditText objetEditText;
+    EditText contentEditText;
 
     CurentUser user;
     DB db;
@@ -43,28 +36,24 @@ public class WriteNotifMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.write_message);
 
-        setContentView(R.layout.write_notif_menu);
+        drawerLayout = findViewById(R.id.drawerLayout_notifMenu);
+        navView = findViewById(R.id.navView_notifMenu);
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout_notifMenu);
-        navView = (NavigationView) findViewById(R.id.navView_notifMenu);
-
-        // init de la db et récupération du user courant
+        // Initialize DB and get current user
         user = CurentUser.getInstance();
         db = new DB(getApplicationContext(), this);
 
-        // Change le contenu du side menu
+        // Change side menu content based on user role
         switch (user.role){
             case "candidat":
                 navView.getMenu().clear();
-                navView.inflateMenu(R.menu.drawer_candidate_notif);
+                navView.inflateMenu(R.menu.candidat_message_menu);
                 break;
             case "employeur":
-            case "agence":
                 navView.getMenu().clear();
-                navView.inflateMenu(R.menu.drawer_employeur_agence_notif);
-                break;
-            case "admin":
+                navView.inflateMenu(R.menu.employeur_message_menu);
                 break;
         }
 
@@ -80,13 +69,14 @@ public class WriteNotifMenu extends AppCompatActivity {
             }
         });
 
-        destinataire_t = (EditText) findViewById(R.id.writeNotif_destinataire_text);
-        objet_t = (EditText) findViewById(R.id.writeNotif_title_text);
-        content_t = (EditText) findViewById(R.id.writeNotif_content_text);
+        destinataireEditText = findViewById(R.id.writeNotif_destinataire_text);
+        objetEditText = findViewById(R.id.writeNotif_title_text);
+        contentEditText = findViewById(R.id.writeNotif_content_text);
 
+        // Set recipient and subject if passed from another activity
         if(getIntent().getExtras() != null){
-            destinataire_t.setText(getIntent().getExtras().getString("to"));
-            objet_t.setText(getIntent().getExtras().getString("obj"));
+            destinataireEditText.setText(getIntent().getExtras().getString("to"));
+            objetEditText.setText(getIntent().getExtras().getString("obj"));
         }
     }
 
@@ -95,27 +85,30 @@ public class WriteNotifMenu extends AppCompatActivity {
     }
 
     public void sendNotif(View v){
-        String dest = String.valueOf(destinataire_t.getText());
-        String obj = String.valueOf(objet_t.getText());
-        String cont = String.valueOf(content_t.getText());
+        String dest = destinataireEditText.getText().toString();
+        String obj = objetEditText.getText().toString();
+        String cont = contentEditText.getText().toString();
 
-        if(obj.equals("")){
+        // Validate subject
+        if(obj.isEmpty()){
             Toast.makeText(getApplicationContext(),"Objet vide", Toast.LENGTH_LONG).show();
             return;
         }
 
         String destID = db.getUserId(dest);
 
+        // Check if recipient exists
         if(destID == null){
             Toast.makeText(getApplicationContext(),"Le destinataire n'existe pas", Toast.LENGTH_LONG).show();
             return;
         }
 
+        // Add notification to database and finish activity
         db.addNotif(user.id, destID, obj, cont);
         finish();
     }
 
-    // Permet d'ouvrir le Side Menu
+    // Open side menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(barToggled.onOptionsItemSelected(item)){
@@ -124,32 +117,28 @@ public class WriteNotifMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Change d'Activity
+    // Switch activity
     void gotoMenu(int itemId){
 
         Intent intent = null;
         switch (itemId) {
             case R.id.drawer_profil:
                 if(user.role.equals("candidat")){
-                    intent = new Intent(getApplicationContext(), Profile_Menu_Candidates.class);
+                    intent = new Intent(getApplicationContext(), ProfilCandidat.class);
                 }
-                if(user.role.equals("employeur") || user.role.equals("agence")){
-                    intent = new Intent(getApplicationContext(), Profil_Menu_Employeur.class);
+                if(user.role.equals("employeur")){
+                    intent = new Intent(getApplicationContext(), ProfilEmployeur.class);
                 }
-                if(user.role.equals("admin")){
-                    // TODO : relier le menu profil admin
-                    //intent = new Intent(getApplicationContext(), Profile_Menu_Candidates.class);
-                }
+
                 break;
             case R.id.drawer_annonce:
-                intent = new Intent(getApplicationContext(), AnnonceList_Menu_Anon_Candidates.class);
+                intent = new Intent(getApplicationContext(), AffichageAnnonces.class);
                 break;
-
             case R.id.drawer_disconnect:
                 CurentUser.getInstance().id = null;
                 CurentUser.getInstance().username = null;
                 CurentUser.getInstance().role = null;
-                intent = new Intent(getApplicationContext(), LoginScreen.class);
+                intent = new Intent(getApplicationContext(), Login.class);
                 break;
         }
 

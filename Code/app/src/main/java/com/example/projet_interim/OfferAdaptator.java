@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OfferAdaptator extends BaseAdapter {
 
@@ -40,16 +38,13 @@ public class OfferAdaptator extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        view = inflater.inflate(R.layout.offre_listview_adaptator, null);
+        view = inflater.inflate(R.layout.offre_adaptator, null);
         TextView title = view.findViewById(R.id.offre_title);
         TextView description = view.findViewById(R.id.offre_description);
         TextView coord = view.findViewById(R.id.offre_coord);
 
 
         ArrayList<String> s = getItem(i);
-        /*title.setText(s[0]);
-        description.setText(s[1]);
-        coord.setText(s[2]);*/
         title.setText(s.get(2) + "\n\n" + s.get(3) + "\n\n" + s.get(4));
 
         return view;
