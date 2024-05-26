@@ -1,15 +1,16 @@
 package com.example.projet_interim.Commun;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
 
-        import androidx.annotation.Nullable;
-        import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-        import com.example.projet_interim.DB;
-        import com.example.projet_interim.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.projet_interim.DB;
+import com.example.projet_interim.R;
 
 public class RegisterMenu extends AppCompatActivity {
 
@@ -44,5 +45,6 @@ public class RegisterMenu extends AppCompatActivity {
         setResult(RESULT_OK);
         finish();
     }
+
 }
 

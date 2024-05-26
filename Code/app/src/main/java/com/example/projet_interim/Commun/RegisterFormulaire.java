@@ -1,12 +1,21 @@
 package com.example.projet_interim.Commun;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.example.projet_interim.CurentUser;
 import com.example.projet_interim.DB;
@@ -14,6 +23,10 @@ import com.example.projet_interim.DB;
 import java.util.ArrayList;
 
 public class RegisterFormulaire extends Activity {
+    private static final int PICK_FILE_REQUEST = 1;
+    private Uri fileUri;
+    private TextView cvTextView;
+    private String fileContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +56,6 @@ public class RegisterFormulaire extends Activity {
             bouton.setText("Modifier le profil");
         }
 
-
         switch (role) {
             case "candidat":
 
@@ -59,11 +71,20 @@ public class RegisterFormulaire extends Activity {
                 EditText natio_t = new EditText(this);
                 natio_t.setHint("Nationalité");
 
-                EditText cv_t = new EditText(this);
-                cv_t.setHint("CV");
-                //Numéro de tel
-                // Commentaires
+                Button cvButton = new Button(this);
+                cvButton.setText("Sélectionner CV");
 
+                cvTextView = new TextView(this);
+                Log.d("FilePicker", "Nom du fichier : " + cvTextView);
+
+                cvButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, PICK_FILE_REQUEST);
+                    }
+                });
 
                 bouton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,7 +95,13 @@ public class RegisterFormulaire extends Activity {
                         String p = String.valueOf(prenom_t.getText());
                         String dn = String.valueOf(dateNaissance_t.getText());
                         String na = String.valueOf(natio_t.getText());
-                        String cv = String.valueOf(cv_t.getText());
+
+                        if (fileUri == null) {
+                            Toast.makeText(getApplicationContext(), "Veuillez sélectionner un fichier CV", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        String cv = fileContent;
 
                         if(user.id == null){
                             if(un.equals("") || m.equals("") || n.equals("") || p.equals("")){
@@ -103,9 +130,8 @@ public class RegisterFormulaire extends Activity {
                             db.modifyUserInfo(user.id, userInfo);
                             finish();
                         }
-
-
-                    }});
+                    }
+                });
 
                 if(user.id == null){
                     linearLayout.addView(username_t);
@@ -116,12 +142,13 @@ public class RegisterFormulaire extends Activity {
                 linearLayout.addView(prenom_t);
                 linearLayout.addView(dateNaissance_t);
                 linearLayout.addView(natio_t);
-                linearLayout.addView(cv_t);
+                linearLayout.addView(cvButton);
+                linearLayout.addView(cvTextView);
                 linearLayout.addView(bouton);
 
                 break;
+
             case "employeur":
-                // String username, String role, String mail, String nomEntrep, String nomServiceDepartement, String nomSousServiceDepartement, String siren, String mail2
                 EditText nomEnt_t = new EditText(this);
                 nomEnt_t.setHint("Nom de l'entreprise *");
 
@@ -176,7 +203,8 @@ public class RegisterFormulaire extends Activity {
                             db.modifyUserInfo(user.id, userInfo);
                             finish();
                         }
-                    }});
+                    }
+                });
 
                 if(user.id == null){
                     linearLayout.addView(username_t);
@@ -194,4 +222,41 @@ public class RegisterFormulaire extends Activity {
 
         setContentView(linearLayout);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null) {
+            fileUri = data.getData();
+            if (fileUri != null) {
+                String fileName = getFileName(fileUri);
+                cvTextView.setText(fileName);
+                // fileContent = readFileContent(fileUri);
+                fileContent = fileName;
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+
+
 }

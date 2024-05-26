@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/andidat_profil_menu"
+        app:menu="@menu/candidat_profil_menu"
         android:id="@+id/navView"
         android:layout_gravity="start"
         android:fitsSystemWindows="true" />
